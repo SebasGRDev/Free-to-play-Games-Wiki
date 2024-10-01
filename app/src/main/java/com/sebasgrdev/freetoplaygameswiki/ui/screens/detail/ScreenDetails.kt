@@ -61,7 +61,7 @@ fun ScreenDetail(
                 item { TitleDetailsDivider("Description") }
                 item { DescriptionGame(game.description) }
                 item { TitleDetailsDivider("Screenshots") }
-                item { ImagesScreenshots() }
+                item { ImagesScreenshots(game.screenshots) }
                 if (game.minimum_system_requirements != null) {
                     item { TitleDetailsDivider("Minimum System Requirements") }
                     item {
@@ -78,7 +78,7 @@ fun ScreenDetail(
                     item { TextBrowserRequired() }
                 }
                 item { TitleDetailsDivider("Related Games") }
-                item { CardsRelatedGames() }
+                item { CardsRelatedGames(genre = game.genre, navController = navController) }
             }
         }
     }
