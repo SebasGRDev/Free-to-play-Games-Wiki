@@ -10,11 +10,12 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.sebasgrdev.freetoplaygameswiki.ui.screens.tools.SearchGame
 import com.sebasgrdev.freetoplaygameswiki.viewmodel.GamesViewModel
 
 @Composable
-fun ScreenMain(modifier: Modifier = Modifier) {
+fun ScreenMain(modifier: Modifier = Modifier, navController: NavHostController, viewModel: GamesViewModel = hiltViewModel()) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -29,15 +30,15 @@ fun ScreenMain(modifier: Modifier = Modifier) {
         SearchGame()
         LazyColumn {
             item { TitleCategory("Popular Games") }
-            item { CardsPopularGames() }
+            item { CardsPopularGames(viewModel, navController) }
             item { TitleCategory("All Games") }
-            item { CardAllGames() }
+            item { CardAllGames(viewModel, navController) }
             item { TitleCategory("Release Date") }
-            item { CardReleaseGames() }
+            item { CardReleaseGames(viewModel, navController) }
             item { TitleCategory("Pc Games") }
-            item { CardPcGames() }
+            item { CardPcGames(viewModel, navController) }
             item { TitleCategory("Browser Games") }
-            item { CardBrowserGames() }
+            item { CardBrowserGames(viewModel, navController) }
         }
     }
 }

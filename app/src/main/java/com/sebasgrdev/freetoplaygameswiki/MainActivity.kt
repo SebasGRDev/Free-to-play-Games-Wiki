@@ -11,7 +11,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.rememberNavController
 import com.sebasgrdev.freetoplaygameswiki.model.api.GameClient
+import com.sebasgrdev.freetoplaygameswiki.ui.navigation.NavigationComponent
 import com.sebasgrdev.freetoplaygameswiki.ui.screens.main.ScreenMain
 import com.sebasgrdev.freetoplaygameswiki.ui.theme.FreeToPlayGamesWikiTheme
 import com.sebasgrdev.freetoplaygameswiki.viewmodel.GamesViewModel
@@ -24,10 +26,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             FreeToPlayGamesWikiTheme {
+                val navController = rememberNavController()
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    ScreenMain(Modifier.padding(innerPadding))
-                    //ScreenDetail(Modifier.padding(innerPadding))
-                    //ScreenCategoryGames(Modifier.padding(innerPadding))
+                    NavigationComponent(navController = navController, innerPadding = innerPadding)
+                    //ScreenMain(Modifier.padding(innerPadding), navController)
                 }
             }
         }

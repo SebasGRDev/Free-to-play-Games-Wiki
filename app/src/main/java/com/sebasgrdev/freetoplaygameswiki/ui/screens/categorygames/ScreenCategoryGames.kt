@@ -8,10 +8,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.navigation.NavHostController
 import com.sebasgrdev.freetoplaygameswiki.ui.screens.tools.TopBar
 
 @Composable
-fun ScreenCategoryGames(modifier: Modifier) {
+fun ScreenCategoryGames(modifier: Modifier, navController: NavHostController) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -23,7 +24,7 @@ fun ScreenCategoryGames(modifier: Modifier) {
                 )
             )
     ) {
-        TopBar("Shooters")
+        TopBar("Shooters", navController)
         CardsCategoryGame()
     }
 }

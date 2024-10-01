@@ -6,17 +6,33 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.sebasgrdev.freetoplaygameswiki.ui.screens.tools.TopBar
+import com.sebasgrdev.freetoplaygameswiki.viewmodel.GamesViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Preview
 @Composable
-fun ScreenDetail(modifier: Modifier = Modifier) {
+fun ScreenDetail(
+    modifier: Modifier = Modifier,
+    viewModel: GamesViewModel = hiltViewModel(),
+    gameId: Int,
+    navController: NavHostController
+) {
+    LaunchedEffect(key1 = gameId) {
+        viewModel.getGameDetails(gameId)
+    }
+
+    val gameDetails by viewModel.gameDetails.collectAsState()
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -28,37 +44,42 @@ fun ScreenDetail(modifier: Modifier = Modifier) {
                 )
             )
     ) {
-        TopBar("Details")
+        TopBar("Details", navController)
         LazyColumn {
-            item { PosterDetail() }
-            item { TitleDetail("TarisLand") }
-            item { DetailsGame("2024-06-22", "MMORGP", "Windows", "Tencent", "Level Infinite") }
-            item { TitleDetailsDivider("Description") }
-            item {
-                DescriptionGame("Tarisland is a free-to-play cross-platform MMORPG developed by Level Infinite and Published by Tencent. \\r\\n\\r\\nAvailable on PC and mobile devices, the game allows players to easily move between both, taking the game with them when they can’t be at their desk. The game is designed to appeal to players of MMOs like World of Warcraft, offering players nine playable classes and 18 specializations.\\r\\n\\r\\nEach class features an extensive talent tree system and can be customized. Players of existing MMOs will be familiar with the standard tank, DPS, and healer lineup, necessary for the game’s classic raid and dungeon system. Explore a vast game world and solve mysteries. Pick up various trades such as gathering, mining, and crafting, and sell your items on the auction house.")
+            gameDetails?.let { game ->
+                item { PosterDetail(game.thumbnail) }
+                item { TitleDetail(game.title) }
+                item {
+                    DetailsGame(
+                        game.release_date,
+                        game.genre,
+                        game.platform,
+                        game.publisher,
+                        game.developer
+                    )
+                }
+                item { TitleDetailsDivider("Description") }
+                item { DescriptionGame(game.description) }
+                item { TitleDetailsDivider("Screenshots") }
+                item { ImagesScreenshots() }
+                if (game.minimum_system_requirements != null) {
+                    item { TitleDetailsDivider("Minimum System Requirements") }
+                    item {
+                        MinimunRequirements(
+                            game.minimum_system_requirements.os ?: "",
+                            game.minimum_system_requirements.processor ?: "",
+                            game.minimum_system_requirements.memory ?: "",
+                            game.minimum_system_requirements.graphics ?: "",
+                            game.minimum_system_requirements.storage ?: ""
+                        )
+                    }
+                } else {
+                    item { TitleDetailsDivider("Browser required") }
+                    item { TextBrowserRequired() }
+                }
+                item { TitleDetailsDivider("Related Games") }
+                item { CardsRelatedGames() }
             }
-            item { TitleDetailsDivider("Screenshots") }
-            item { ImagesScreenshots() }
-            item { TitleDetailsDivider("Minimum System Requirements") }
-            item {
-                MinimunRequirements(
-                    "Windows 10 64-bit",
-                    "Intel Core i5-4590 or AMD FX-8350",
-                    "8 GB",
-                    "Nvidia GeForce GTX 960 or AMD Radeon R9 280",
-                    "20 GB"
-                )
-            }
-            item { TitleDetailsDivider("Related Games") }
-            item { CardsRelatedGames() }
-
         }
-
     }
-
 }
-
-
-
-
-

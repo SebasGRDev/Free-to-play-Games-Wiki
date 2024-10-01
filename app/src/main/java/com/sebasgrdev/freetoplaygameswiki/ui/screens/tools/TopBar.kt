@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
@@ -15,11 +16,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.navigation.NavHostController
 import com.sebasgrdev.freetoplaygameswiki.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar(title: String) {
+fun TopBar(title: String, navController : NavHostController) {
     TopAppBar(
         title = {
             Text(
@@ -32,12 +34,14 @@ fun TopBar(title: String) {
             )
         },
         navigationIcon = {
-            Icon(
-                imageVector = Icons.Filled.ArrowBack,
-                contentDescription = "",
-                tint = Color.White,
-                modifier = Modifier.padding(PaddingValues(dimensionResource(R.dimen.padding_small)))
-            )
+            IconButton(onClick = { navController.popBackStack() }) {
+                Icon(
+                    imageVector = Icons.Filled.ArrowBack,
+                    contentDescription = "",
+                    tint = Color.White,
+                    modifier = Modifier.padding(PaddingValues(dimensionResource(R.dimen.padding_small)))
+                )
+            }
         },
         colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.Black)
     )

@@ -19,17 +19,21 @@ import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.sebasgrdev.freetoplaygameswiki.R
-import com.sebasgrdev.freetoplaygameswiki.model.api.response.DataResponseItem
+import com.sebasgrdev.freetoplaygameswiki.model.data.response.GameResponseItem
 
 @Composable
-fun ItemPopularGames(game: DataResponseItem) {
+fun ItemPopularGames(game: GameResponseItem, navController : NavHostController) {
     Card(
         modifier = Modifier
             .width(350.dp)
             .height(300.dp),
-        border = BorderStroke(2.dp, color = Color.DarkGray)
+        border = BorderStroke(2.dp, color = Color.DarkGray),
+        onClick = {
+            navController.navigate("game?id=${game.id}")
+        }
     ) {
         Column(Modifier.background(Color.Black).fillMaxSize()) {
             AsyncImage(
@@ -63,11 +67,14 @@ fun ItemPopularGames(game: DataResponseItem) {
 }
 
 @Composable
-fun ItemGames(game: DataResponseItem) {
+fun ItemGames(game: GameResponseItem, navController : NavHostController) {
     Card(
         modifier = Modifier
             .width(200.dp).height(300.dp),
-        border = BorderStroke(2.dp, color = Color.DarkGray)
+        border = BorderStroke(2.dp, color = Color.DarkGray),
+        onClick = {
+            navController.navigate("game?id=${game.id}")
+        }
     ) {
         Column(Modifier.background(Color.Black).fillMaxSize()) {
             AsyncImage(

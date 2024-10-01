@@ -12,11 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.sebasgrdev.freetoplaygameswiki.R
 import com.sebasgrdev.freetoplaygameswiki.viewmodel.GamesViewModel
 
 @Composable
-fun CardBrowserGames(viewModel: GamesViewModel = hiltViewModel()) {
+fun CardBrowserGames(viewModel: GamesViewModel = hiltViewModel(), navController : NavHostController) {
     val state by viewModel.browserGames.collectAsState()
     LazyRow(
         modifier = Modifier.fillMaxWidth(),
@@ -24,7 +25,7 @@ fun CardBrowserGames(viewModel: GamesViewModel = hiltViewModel()) {
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(state) {
-            ItemGames(it)
+            ItemGames(it, navController)
         }
     }
 }
