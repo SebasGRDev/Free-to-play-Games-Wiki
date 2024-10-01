@@ -9,14 +9,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.sebasgrdev.freetoplaygameswiki.ui.screens.tools.SearchGame
+import com.sebasgrdev.freetoplaygameswiki.viewmodel.GamesViewModel
 
-@Preview(showSystemUi = true)
 @Composable
 fun ScreenMain(modifier: Modifier = Modifier) {
     Column(
-
         modifier = modifier
             .fillMaxSize()
             .background(
@@ -32,13 +31,13 @@ fun ScreenMain(modifier: Modifier = Modifier) {
             item { TitleCategory("Popular Games") }
             item { CardsPopularGames() }
             item { TitleCategory("All Games") }
-            item { CardsGames() }
+            item { CardAllGames() }
             item { TitleCategory("Release Date") }
-            item { CardsGames() }
+            item { CardReleaseGames() }
             item { TitleCategory("Pc Games") }
-            item { CardsGames() }
+            item { CardPcGames() }
             item { TitleCategory("Browser Games") }
-            item { CardsGames() }
+            item { CardBrowserGames() }
         }
     }
 }
