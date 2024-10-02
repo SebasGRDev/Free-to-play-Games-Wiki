@@ -1,6 +1,7 @@
 package com.sebasgrdev.freetoplaygameswiki.ui.screens.main
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -61,6 +62,34 @@ fun ScreenMain(
         drawerState = drawerState,
         drawerContent = {
             ModalDrawerSheet(drawerContainerColor = Color.Black) {
+                Box(modifier = Modifier
+                    .fillMaxWidth()
+                    .background(
+                        Brush.linearGradient(
+                            colors = listOf(Color.DarkGray, Color.Black),
+                            start = Offset(0f, 0f),
+                            end = Offset(1000f, 1000f)
+                        )
+                    )) {
+                    NavigationDrawerItem(
+                        selected = false,
+                        onClick = { scope.launch { drawerState.close() } },
+                        label = {
+                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                Text(
+                                    text = "CATEGORY",
+                                    color = Color.White,
+                                    fontSize = 24.sp
+                                )
+                                HorizontalDivider(
+                                    Modifier.height(2.dp),
+                                    color = Color.LightGray
+                                )
+                            }
+                        },
+                        modifier = Modifier.padding(PaddingValues(dimensionResource(R.dimen.padding_large)))
+                    )
+                }
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize()
@@ -72,26 +101,6 @@ fun ScreenMain(
                             )
                         )
                 ) {
-                    item {
-                        NavigationDrawerItem(
-                            selected = false,
-                            onClick = { scope.launch { drawerState.close() } },
-                            label = {
-                                Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                    Text(
-                                        text = "CATEGORY",
-                                        color = Color.White,
-                                        fontSize = 24.sp
-                                    )
-                                    HorizontalDivider(
-                                        Modifier.height(2.dp),
-                                        color = Color.LightGray
-                                    )
-                                }
-                            },
-                            modifier = Modifier.padding(PaddingValues(dimensionResource(R.dimen.padding_large)))
-                        )
-                    }
                     item { NavigationItem("MMORPG", GameCategory.Mmorpg, navController) }
                     item { NavigationItem("Shooter", GameCategory.Shooter, navController) }
                     item { NavigationItem("Strategy", GameCategory.Strategy, navController) }
@@ -206,17 +215,5 @@ fun ScreenMain(
                 item { CardBrowserGames(viewModel, navController) }
             }
         }
-    }
-}
-
-@Composable
-fun AppLabelTitle() {
-    Row(modifier = Modifier.padding(PaddingValues(dimensionResource(R.dimen.padding_medium)))) {
-        Icon(
-            painter = painterResource(R.drawable.game_console),
-            contentDescription = "",
-            modifier = Modifier.size(24.dp)
-        )
-        Text(text = "Free to play Games", fontSize = 24.sp, color = Color.White)
     }
 }
