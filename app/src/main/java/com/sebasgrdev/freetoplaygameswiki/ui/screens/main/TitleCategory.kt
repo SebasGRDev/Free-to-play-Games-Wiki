@@ -18,10 +18,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.sebasgrdev.freetoplaygameswiki.R
+import com.sebasgrdev.freetoplaygameswiki.ui.navigation.GameCategory
 
 @Composable
-fun TitleCategory(title: String) {
+fun TitleCategory(title: String, category: GameCategory, navController: NavHostController) {
     Row {
         Text(
             text = title,
@@ -32,7 +34,9 @@ fun TitleCategory(title: String) {
             color = Color.White
         )
         TextButton(
-            onClick = {},
+            onClick = {
+                navController.navigate("category_games/${category.route}")
+            },
             modifier = Modifier,
             contentPadding = PaddingValues(dimensionResource(R.dimen.padding_small))
         ) {

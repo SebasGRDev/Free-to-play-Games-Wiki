@@ -4,15 +4,39 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import com.sebasgrdev.freetoplaygameswiki.ui.navigation.GameCategory
 import com.sebasgrdev.freetoplaygameswiki.ui.screens.tools.TopBar
+import com.sebasgrdev.freetoplaygameswiki.viewmodel.GamesViewModel
 
 @Composable
-fun ScreenCategoryGames(modifier: Modifier, navController: NavHostController) {
+fun ScreenCategoryGames(
+    modifier: Modifier,
+    navController: NavHostController,
+    viewModel: GamesViewModel = hiltViewModel(),
+    category: String?
+) {
+    val games = when(category) {
+        GameCategory.Popular.route -> viewModel.popularGames.collectAsState()
+        GameCategory.All.route -> viewModel.allGames.collectAsState()
+        GameCategory.Release.route -> viewModel.releaseGames.collectAsState()
+        GameCategory.Pc.route -> viewModel.pcGames.collectAsState()
+        GameCategory.Browser.route -> viewModel.browserGames.collectAsState()
+        else -> {
+            viewModel.allGames.collectAsState()
+        }
+    }
+
+    val state by games
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -24,7 +48,7 @@ fun ScreenCategoryGames(modifier: Modifier, navController: NavHostController) {
                 )
             )
     ) {
-        TopBar("Shooters", navController)
-        CardsCategoryGame()
+        TopBar("Category", navController)
+        CardsCategoryGame(state, navController)
     }
 }
