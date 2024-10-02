@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -24,6 +25,7 @@ fun ScreenCategoryGames(
     viewModel: GamesViewModel = hiltViewModel(),
     category: String?
 ) {
+
     val games = when(category) {
         GameCategory.Popular.route -> viewModel.popularGames.collectAsState()
         GameCategory.All.route -> viewModel.allGames.collectAsState()
@@ -31,7 +33,12 @@ fun ScreenCategoryGames(
         GameCategory.Pc.route -> viewModel.pcGames.collectAsState()
         GameCategory.Browser.route -> viewModel.browserGames.collectAsState()
         else -> {
-            viewModel.allGames.collectAsState()
+            LaunchedEffect(key1 = category) {
+                category?.let {
+                    viewModel.getGamesByCategory(it)
+                }
+            }
+            viewModel.gameCategory.collectAsState()
         }
     }
 

@@ -25,6 +25,6 @@ interface GamesAPI {
     suspend fun getGamesByPlatform(@Query("platform") platform: String) : List<GameResponseItem>
 
     @GET("games")
-    suspend fun getGamesByCategory(@Query("category") category_name: String) : GameResponseItem
+    suspend fun getGamesByCategory(@Query("category") category_name: String) : List<GameResponseItem>
 
 }

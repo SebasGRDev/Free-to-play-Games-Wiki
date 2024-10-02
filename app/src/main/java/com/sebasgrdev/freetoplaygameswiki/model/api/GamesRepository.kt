@@ -25,4 +25,7 @@ class GamesRepository @Inject constructor(private val api: GamesAPI) {
     suspend fun getGamesById(gameId: Int): DetailResponse {
         return api.getGameById(gameId)
     }
+    suspend fun getGamesByCategory(category: String): List<GameResponseItem> {
+        return api.getGamesByCategory(category)
+    }
 }

@@ -34,6 +34,9 @@ class GamesViewModel @Inject constructor(private val gamesRepo: GamesRepository)
     private val _gameDetails = MutableStateFlow<DetailResponse?>(null)
     val gameDetails : StateFlow<DetailResponse?>  = _gameDetails
 
+    private val _gameCategory = MutableStateFlow(emptyList<GameResponseItem>())
+    val gameCategory : StateFlow<List<GameResponseItem>>  = _gameCategory
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -51,6 +54,12 @@ class GamesViewModel @Inject constructor(private val gamesRepo: GamesRepository)
     fun getGameDetails(gameId: Int) {
         viewModelScope.launch {
             _gameDetails.value = gamesRepo.getGamesById(gameId)
+        }
+    }
+
+    fun getGamesByCategory(category: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            _gameCategory.value = gamesRepo.getGamesByCategory(category)
         }
     }
 }
