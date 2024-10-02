@@ -2,10 +2,9 @@ package com.sebasgrdev.freetoplaygameswiki.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.sebasgrdev.freetoplaygameswiki.model.data.response.GameResponseItem
 import com.sebasgrdev.freetoplaygameswiki.model.api.GamesRepository
 import com.sebasgrdev.freetoplaygameswiki.model.data.response.DetailResponse
-import com.sebasgrdev.freetoplaygameswiki.model.data.response.MinimumSystemRequirements
+import com.sebasgrdev.freetoplaygameswiki.model.data.response.GameResponseItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

@@ -29,7 +29,6 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     NavigationComponent(navController = navController, innerPadding = innerPadding)
-                    //ScreenMain(Modifier.padding(innerPadding), navController)
                 }
             }
         }
